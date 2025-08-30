@@ -1,0 +1,3 @@
+This is a demo for ES modules.
+
+This is a copy of messages.txt
