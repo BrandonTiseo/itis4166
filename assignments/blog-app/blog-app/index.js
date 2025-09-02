@@ -1,7 +1,7 @@
 //Main CLI program for the blogging app
 import chalk from "chalk";
 import { select } from "@inquirer/prompts";
-import * as posts from "./post.js";
+import * as blog from "./post.js";
 while (true) {
   let action = await select({
     message: "What do you want to do?",
@@ -18,16 +18,17 @@ while (true) {
   switch (action) {
     case "Add Post":
       //Add a new post
-      await posts.addPost("foo", "bar");
+      await blog.addPost("foo", "bar");
       break;
 
     case "List Posts":
       //List all posts
-      await  posts.listPosts();
+      await blog.listPosts()
       break;
 
     case "View Post":
       //View a specific post
+      await blog.viewPost(2);
       break;
 
     case "Update Post":

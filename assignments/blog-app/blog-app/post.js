@@ -48,8 +48,16 @@ export async function listPosts() {
   posts.forEach(post => console.log(`${post.id}. ${post.title}`));
 }
 
-export function viewPost(id) {
-  // TODO: Implement logic to find and return a post by ID
+export async function viewPost(id) {
+  let posts = [];
+  try{
+    const postsData = await fs.readFile(postsPath, "utf-8");
+    posts = JSON.parse(postsData); //Takes JSON string and converts into an array of JS objects.
+  } catch(error){
+    console.log(error);
+  };
+  let post = posts.find(post => post.id == id);
+  console.log(`\n${post.title}\n${post.createdAt}\n${post.content}\n`);
 }
 
 export function updatePost(id, newTitle, newContent) {
