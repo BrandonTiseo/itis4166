@@ -37,9 +37,15 @@ export async function addPost(title, content) {
 }
 
 export async function listPosts() {
-  // TODO: Implement logic to return all posts
+  let posts = [];
+  try{
+    const postsData = await fs.readFile(postsPath, "utf-8");
+    posts = JSON.parse(postsData); //Takes JSON string and converts into an array of JS objects.
+  } catch(error){
+    console.log(error);
+  };
 
-
+  posts.forEach(post => console.log(`${post.id}. ${post.title}`));
 }
 
 export function viewPost(id) {
