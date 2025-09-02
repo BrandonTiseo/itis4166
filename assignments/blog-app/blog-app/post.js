@@ -1,32 +1,45 @@
 // post.js
 // This module handles blog post operations (add, list, view, update, delete)
-import fs from 'fs/promises';
-import path from 'path';
+import fs from "fs/promises";
+import path from "path";
+import { format } from "date-fns"
 
 const postsPath =  path.join(import.meta.dirname,  'posts.json');
-let nextID = 1;
 
 export async function addPost(title, content) {
-  // TODO: Implement logic to add a new post and save it
-  let newPost = 
-  {
+  let posts = []
+  try {
+    const postsData = await fs.readFile(postsPath, "utf-8");
+    posts = JSON.parse(postsData); //Takes JSON string and converts into an array of JS objects.
+  } catch (error) {
+    console.log(error);
+  };
+  //Assign ID
+  let nextID;
+  if(posts.length == 0)
+    nextID = 1;
+  else
+    nextID = posts[posts.length - 1].id + 1;
+
+  //Create new post
+  let newPost = {
     id: nextID,
     title: title,
-    content: content
+    content: content,
+    createdAt: format(new Date(), "yyyy-MM-dd h:mm aaa"),
   };
-  let oldPosts = []
-  try{
-    const postsData = await fs.readFile(postsPath, "utf-8");
-    oldPosts = JSON.parse(postsData);
-    oldPosts.push(newPost);
-    await fs.writeFile(postsPath, JSON.stringify(oldPosts, null, 1));
-  } catch(error){
+  posts.push(newPost);
+  try {
+    await fs.writeFile(postsPath, JSON.stringify(posts, null, 1));
+  } catch (error) {
     console.log(error);
   };
 }
 
-export function listPosts() {
+export async function listPosts() {
   // TODO: Implement logic to return all posts
+
+
 }
 
 export function viewPost(id) {

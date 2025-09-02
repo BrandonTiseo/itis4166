@@ -18,7 +18,7 @@ while (true) {
   switch (action) {
     case "Add Post":
       //Add a new post
-      addPost("foo", "bar");
+      await addPost("foo", "bar");
       break;
 
     case "List Posts":
