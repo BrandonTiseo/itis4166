@@ -33,10 +33,12 @@ while (true) {
 
     case "Update Post":
       //Update a specific post
+      await blog.updatePost(1,"foo","")
       break;
 
     case "Delete Post":
       //Delete a specific post
+      await blog.deletePost(1)
       break;
 
     case "Exit": {

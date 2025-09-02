@@ -55,9 +55,14 @@ export async function viewPost(id) {
     posts = JSON.parse(postsData); //Takes JSON string and converts into an array of JS objects.
   } catch(error){
     console.log(error);
-  };
+  }
+  
   let post = posts.find(post => post.id == id);
-  console.log(`\n${post.title}\n${post.createdAt}\n${post.content}\n`);
+  
+  if(post != undefined)
+    console.log(`\n${post.title}\n${post.createdAt}\n${post.content}\n`);
+  else
+    console.log("id not found.")
 }
 
 export async function updatePost(id, newTitle, newContent){
@@ -67,15 +72,44 @@ export async function updatePost(id, newTitle, newContent){
     posts = JSON.parse(postsData); //Takes JSON string and converts into an array of JS objects.
   } catch(error){
     console.log(error);
-  };
+  }
 
-  let post = posts.find(post => post.id == id);
-  if(newTitle != "")
-    post.title = newTitle;
-  if(newContent != "")
-    post.content = newContent;
+  let index = posts.findIndex(post => post.id == id)
+  if(index != -1){
+    if(newTitle != "")
+      posts[index].title = newTitle;
+    if(newContent != "")
+      posts[index].content = newContent;
+
+    try {
+      await fs.writeFile(postsPath, JSON.stringify(posts, null, 1));
+    } catch (error) {
+      console.log(error);
+    }
+  } else{
+    console.log("id not found.")
+  }
 }
 
-export function deletePost(id) {
-  // TODO: Implement logic to delete a post
+export async function deletePost(id) {
+  let posts = [];
+  try{
+    const postsData = await fs.readFile(postsPath, "utf-8");
+    posts = JSON.parse(postsData); //Takes JSON string and converts into an array of JS objects.
+  } catch(error){
+    console.log(error);
+  }
+
+  let index = posts.findIndex(post => post.id == id);
+  if(index != -1){
+    posts.splice(index,1);
+
+    try {
+      await fs.writeFile(postsPath, JSON.stringify(posts, null, 1));
+    } catch (error) {
+      console.log(error);
+    }
+  } else{
+    console.log("id not found.")
+  }
 }
