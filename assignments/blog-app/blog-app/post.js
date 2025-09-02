@@ -60,8 +60,20 @@ export async function viewPost(id) {
   console.log(`\n${post.title}\n${post.createdAt}\n${post.content}\n`);
 }
 
-export function updatePost(id, newTitle, newContent) {
-  // TODO: Implement logic to update a post
+export async function updatePost(id, newTitle, newContent){
+  let posts = [];
+  try{
+    const postsData = await fs.readFile(postsPath, "utf-8");
+    posts = JSON.parse(postsData); //Takes JSON string and converts into an array of JS objects.
+  } catch(error){
+    console.log(error);
+  };
+
+  let post = posts.find(post => post.id == id);
+  if(newTitle != "")
+    post.title = newTitle;
+  if(newContent != "")
+    post.content = newContent;
 }
 
 export function deletePost(id) {
