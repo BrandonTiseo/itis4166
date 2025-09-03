@@ -10,6 +10,7 @@ export default defineConfig([
     extends: ["js/recommended"],
     rules: {
       "no-unused-vars": "warn",
+      "no-case-declarations": "warn"
     },
   },
   { files: ["**/*.{js,mjs,cjs}"], languageOptions: { globals: globals.node } },
