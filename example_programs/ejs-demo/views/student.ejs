@@ -9,11 +9,11 @@
   <body>
     <h2>Student Details</h2>
     <div class="student-container">
-      <img src="/images/alice.jpg" alt="profile picture" />
+      <img src="<%=obj.profile%>" alt="profile picture" />
       <div>
-        <p><span class="opacity-70">Name: </span>Alice</p>
-        <p><span class="opacity-70">Major: </span>Computer Science</p>
-        <p><span class="opacity-70">GPA: </span>3.2</p>
+        <p><span class="opacity-70">Name: </span><%=obj.name%></p>
+        <p><span class="opacity-70">Major: </span><%=obj.major%></p>
+        <p><span class="opacity-70">GPA: </span><%=obj.gpa%></p>
       </div>
     </div>
   </body>

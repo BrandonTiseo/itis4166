@@ -45,7 +45,13 @@ app.get("/students", (req, res) => {
 });
 
 app.get("/students/:id", (req, res) => {
-  res.sendFile(join(import.meta.dirname, "public", "student.html"));
+  const id = parseInt(req.params.id);
+  const student = students.find(s=>s.id === id);
+  if(student){
+    res.status(200).render('student', {obj: student}); //template-engine create a file. obj can be any name. if name and value have the same name you can just put one value.
+  } else {
+    res.status(404).render('error',{message: 'Student not found.'});
+  }
 });
 
 app.listen(port, () => console.log("The server is running at port", port));
