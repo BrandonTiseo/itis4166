@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/students", (req, res) => {
-  res.sendFile(join(import.meta.dirname, "public", "students.html"));
+  res.render('students',{ students });
 });
 
 app.get("/students/:id", (req, res) => {

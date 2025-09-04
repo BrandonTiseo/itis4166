@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Students</title>
+  </head>
+  <body>
+    <h2>Students</h2>
+    <%if(students.length){%>
+          <div class="students-container">
+      <%students.forEach(student=>{%>
+        <div class="center-align">
+          <img src="<%=student.profile%>" alt="profile picture"/>
+          <p><%=student.name%></p>
+        </div>
+      <%})
+    } else {%>
+      <p>There is no student.</p>
+    <%}%>
+    </div>
+  </body>
+</html>
