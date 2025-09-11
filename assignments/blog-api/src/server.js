@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 
-import blogRoutes from './routes/blog-routes.js';
+import blogRoutes from './routes/blogRoutes.js';
 
 
 const app = express();

@@ -1,5 +1,9 @@
+import { getAllBlogs} from '../services/blogService.js';
+//Handles requests and response.
 export function getAllBlogsHandler(req, res){
-    res.status(200).json({msg: 'Sending all blogs'});
+    let query = req.query;
+    let result =  getAllBlogs(query);
+    res.status(200).json(result);
 }
 
 
