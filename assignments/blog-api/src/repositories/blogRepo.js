@@ -1,4 +1,4 @@
-import { blogs } from '../db/blogs.js';
+import { blogs, getNextId } from '../db/blogs.js';
 //This layer works with the database directly.
 
 export function getAll(query) {
@@ -21,4 +21,11 @@ export function getAll(query) {
 export function getById(id) {
     let blog = blogs.find(b => b.id === id);
     return blog;
+}
+
+export function create(blog){
+    let id = getNextId();
+    const newBlog = { id, ...blog};
+    blogs.push(newBlog);
+    return newBlog;
 }

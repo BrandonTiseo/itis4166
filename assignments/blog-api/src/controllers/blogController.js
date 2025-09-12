@@ -1,4 +1,4 @@
-import { getAllBlogs, getBlogById} from '../services/blogService.js';
+import { getAllBlogs, getBlogById, createBlog} from '../services/blogService.js';
 //Handles requests and response.
 export function getAllBlogsHandler(req, res){
     let query = req.query;
@@ -19,7 +19,9 @@ export function getBlogByIDHandler(req, res){
 
 
 export function createBlogHandler(req, res){
-    res.status(201).json({msg: 'Create a new blog'});
+    let data = req.body;
+    let newBlog = createBlog(data);
+    res.status(201).json(newBlog);
 }
 
 
