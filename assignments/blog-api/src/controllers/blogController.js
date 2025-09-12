@@ -1,4 +1,4 @@
-import { getAllBlogs} from '../services/blogService.js';
+import { getAllBlogs, getBlogById} from '../services/blogService.js';
 //Handles requests and response.
 export function getAllBlogsHandler(req, res){
     let query = req.query;
@@ -8,7 +8,13 @@ export function getAllBlogsHandler(req, res){
 
 
 export function getBlogByIDHandler(req, res){
-    res.status(200).json({msg: `Sending blog with id ${req.params.id}`});
+    let id = parseInt(req.params.id);
+    let blog = getBlogById(id);
+    if(!blog.error){
+        res.status(200).json(blog);
+    } else {
+        res.status(blog.status).json({ error: blog.error});
+    }
 }
 
 

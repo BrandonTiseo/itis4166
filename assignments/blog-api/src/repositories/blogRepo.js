@@ -17,3 +17,8 @@ export function getAll(query) {
     
     return result;
 }
+
+export function getById(id) {
+    let blog = blogs.find(b => b.id === id);
+    return blog;
+}
