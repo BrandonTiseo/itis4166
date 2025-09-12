@@ -29,3 +29,18 @@ export function create(blog){
     blogs.push(newBlog);
     return newBlog;
 }
+
+export function update(id, updates){
+    const index = blogs.findIndex(blog=>blog.id === id);
+    if(index !== -1){
+        const updatedBlog = {
+            ...blogs[index], 
+            ...updates, 
+            updatedAt: new Date().toISOString()
+        };
+        blogs[index] = updatedBlog;
+        return blogs[index];
+    } else {
+        return null;
+    }
+}

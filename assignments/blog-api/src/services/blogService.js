@@ -1,4 +1,4 @@
-import { getAll, getById, create } from '../repositories/blogRepo.js';
+import { getAll, getById, create, update } from '../repositories/blogRepo.js';
 //Handles business logic. Do we need to do anything before sending to/from database?
 export function getAllBlogs(query){
     return getAll(query); 
@@ -23,4 +23,13 @@ export function createBlog(data){
     };
 
     create(blog);
+}
+
+export function updateBlog(id, data){
+    if(!data || (!data.title && !data.content && !data.author)){
+        return {error: `No updateable fields provided`, status: 400 };
+    }
+    const updatedBlog = update(id, data);
+    if(updatedBlog) return updatedBlog;
+    else return {error: `Cannot find blog with id ${id}`, status: 404 };
 }
