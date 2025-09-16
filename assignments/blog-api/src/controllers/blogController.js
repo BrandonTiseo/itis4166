@@ -6,7 +6,6 @@ export function getAllBlogsHandler(req, res){
     res.status(200).json(result);
 }
 
-
 export function getBlogByIDHandler(req, res){
     let id = parseInt(req.params.id);
     let blog = getBlogById(id);
@@ -23,7 +22,7 @@ export function updateBlogHandler(req, res){
     let id = parseInt(req.params.id);
     let updates = req.body;
     const updatedBlog = updateBlog(id, updates);
-    res.status(updatedBlog.status).json({ error: updatedBlog.error});
+    res.status(200).json(updatedBlog);
 }
 
 export function deleteBlogHandler(req, res){

@@ -34,7 +34,6 @@ export function updateBlog(id, data){
         const error = new Error(`No updateable fields provided`);
         error.status = 400;
         throw error;
-
     }
     const updatedBlog = update(id, data);
     if(updatedBlog) return updatedBlog;
