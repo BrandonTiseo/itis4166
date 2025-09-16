@@ -1,4 +1,5 @@
 import { getAllBlogs, getBlogById, createBlog, updateBlog, deleteBlog} from '../services/blogService.js';
+
 //Handles requests and response.
 export function getAllBlogsHandler(req, res){
     let query = req.query;
