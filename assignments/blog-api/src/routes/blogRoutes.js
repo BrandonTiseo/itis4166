@@ -1,5 +1,5 @@
 import express from 'express';
-import { validateBlogId } from '../middleware/blogValidators.js';
+import { validateBlogId, validateBlogQuery } from '../middleware/blogValidators.js';
 
 import { getAllBlogsHandler, getBlogByIDHandler, createBlogHandler, updateBlogHandler, deleteBlogHandler } from '../controllers/blogController.js';
 
@@ -8,7 +8,7 @@ import { getAllBlogsHandler, getBlogByIDHandler, createBlogHandler, updateBlogHa
 const router = express.Router();
 
 
-router.get('/', getAllBlogsHandler);
+router.get('/', validateBlogQuery, getAllBlogsHandler);
 
 router.get('/:id', validateBlogId, getBlogByIDHandler);
 

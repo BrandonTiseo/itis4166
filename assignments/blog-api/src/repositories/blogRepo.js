@@ -12,7 +12,7 @@ export function getAll(query) {
     }
 
     if(query.published){
-        result = result.filter(blog=> blog.isPublished.toString() === query.published.toLowerCase());
+        result = result.filter(blog=> blog.isPublished.toString() === query.published);
     }
     
     return result;

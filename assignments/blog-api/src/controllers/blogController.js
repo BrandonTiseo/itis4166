@@ -1,8 +1,11 @@
 import { getAllBlogs, getBlogById, createBlog, updateBlog, deleteBlog} from '../services/blogService.js';
+import { matchedData } from 'express-validator';
 
 //Handles requests and response.
 export function getAllBlogsHandler(req, res){
-    let query = req.query;
+    let query = matchedData(req);
+    console.log(req.query);
+    console.log(query);
     let result =  getAllBlogs(query);
     res.status(200).json(result);
 }
