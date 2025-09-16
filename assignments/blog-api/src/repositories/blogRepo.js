@@ -44,3 +44,13 @@ export function update(id, updates){
         return null;
     }
 }
+
+export function remove(id){
+    let index = blogs.find(b => b.id === id);
+    if(index !== -1){
+        blogs.splice(index, 1);
+        return true;
+    } else {
+        return false;
+    }
+}
