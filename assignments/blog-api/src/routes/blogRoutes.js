@@ -1,5 +1,5 @@
 import express from 'express';
-import { validateBlogId, validateBlogQuery } from '../middleware/blogValidators.js';
+import { validateBlogId, validateBlogQuery, validateCreateBlog, validateUpdateBlog } from '../middleware/blogValidators.js';
 
 import { getAllBlogsHandler, getBlogByIDHandler, createBlogHandler, updateBlogHandler, deleteBlogHandler } from '../controllers/blogController.js';
 
@@ -12,9 +12,9 @@ router.get('/', validateBlogQuery, getAllBlogsHandler);
 
 router.get('/:id', validateBlogId, getBlogByIDHandler);
 
-router.post('/', createBlogHandler);
+router.post('/', validateCreateBlog, createBlogHandler);
 
-router.put('/:id', validateBlogId, updateBlogHandler);
+router.put('/:id', validateBlogId, validateUpdateBlog, updateBlogHandler);
 
 router.delete('/:id', validateBlogId, deleteBlogHandler);
 

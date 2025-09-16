@@ -4,15 +4,15 @@ import { blogs, getNextId } from '../db/blogs.js';
 export function getAll(query) {
     let result = [...blogs];
     if(query.author){
-        result = result.filter(blog=>blog.author.toLowerCase() === query.author.toLowerCase())
+        result = result.filter(blog=>blog.author === query.author)
     }
 
     if(query.title){
-        result = result.filter(blog=>blog.title.toLowerCase().includes(query.title.toLowerCase()));
+        result = result.filter(blog=>blog.title.toLowerCase().includes(query.title));
     }
 
     if(query.published){
-        result = result.filter(blog=> blog.isPublished.toString() === query.published);
+        result = result.filter(blog=> blog.isPublished === query.published);
     }
     
     return result;

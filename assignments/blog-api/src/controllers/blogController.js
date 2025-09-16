@@ -4,8 +4,6 @@ import { matchedData } from 'express-validator';
 //Handles requests and response.
 export function getAllBlogsHandler(req, res){
     let query = matchedData(req);
-    console.log(req.query);
-    console.log(query);
     let result =  getAllBlogs(query);
     res.status(200).json(result);
 }
