@@ -46,7 +46,7 @@ export function update(id, updates){
 }
 
 export function remove(id){
-    let index = blogs.find(b => b.id === id);
+    let index = blogs.findIndex(b => b.id === id);
     if(index !== -1){
         blogs.splice(index, 1);
         return true;

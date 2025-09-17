@@ -36,7 +36,7 @@ export function update(id, updates){
 }
 
 export function remove(id){
-    let index = categories.find(c => c.id === id);
+    let index = categories.findIndex(c => c.id === id);
     if(index !== -1){
         categories.splice(index, 1);
         return true;

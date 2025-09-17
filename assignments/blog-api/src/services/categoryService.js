@@ -18,7 +18,7 @@ export function createCategory(data){
     let category = {
         name: data.name
     };
-    create(category);
+    return create(category);
 }
 
 export function updateCategory(id, data){

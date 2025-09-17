@@ -16,6 +16,7 @@ export function getBlogByIDHandler(req, res){
 export function createBlogHandler(req, res){
     let data = req.body;
     let newBlog = createBlog(data);
+    console.log(newBlog);
     res.status(201).json(newBlog);
 }
 

@@ -10,6 +10,7 @@ export const blogs = [
     publishedAt: null,
 },
 ];
+
 let nextID = blogs.length;
 
 export function getNextId(){
@@ -19,5 +20,5 @@ export function getNextId(){
 
 export function resetDb() {
     blogs.length = 0;
-    nextId = blogs.length;
+    nextID = blogs.length;
 }

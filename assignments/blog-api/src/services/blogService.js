@@ -25,8 +25,7 @@ export function createBlog(data){
         updatedAt: now,
         publishedAt: data.isPublished? now:null
     };
-
-    create(blog);
+    return create(blog);
 }
 
 export function updateBlog(id, data){

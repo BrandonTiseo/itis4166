@@ -6,8 +6,9 @@ export const categories = [
 {
     id: 2,
     name: "data_beta"
-}
+},
 ];
+
 let nextID = categories.length;
 
 export function getNextId(){
@@ -17,5 +18,5 @@ export function getNextId(){
 
 export function resetDb() {
     categories.length = 0;
-    nextId = categories.length;
+    nextID = categories.length;
 }
