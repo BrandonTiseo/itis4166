@@ -14,3 +14,8 @@ export function getNextId(){
     nextID++;
     return nextID;
 }
+
+export function resetDb() {
+    categories.length = 0;
+    nextId = categories.length;
+}

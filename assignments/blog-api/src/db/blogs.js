@@ -16,3 +16,8 @@ export function getNextId(){
     nextID++;
     return nextID;
 }
+
+export function resetDb() {
+    blogs.length = 0;
+    nextId = blogs.length;
+}
