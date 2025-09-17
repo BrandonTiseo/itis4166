@@ -1,6 +1,7 @@
 import express from 'express'; //static import
 
 import blogRoutes from './routes/blogRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
 
 
 const app = express();
@@ -13,6 +14,7 @@ if(process.env.NODE_ENV === 'development'){
 }
 app.use(express.json());
 app.use('/api/blogs', blogRoutes);
+app.use('/api/categories', categoryRoutes);
 
 app.use((req, res, next)=>{
     const err = new Error('Not Found');

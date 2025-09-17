@@ -1,5 +1,5 @@
 import { getAll, getById, create, update, remove } from '../repositories/blogRepo.js';
-//Handles business logic. Do we need to do anything before sending to/from database?
+
 export function getAllBlogs(query){
     return getAll(query); 
 }
