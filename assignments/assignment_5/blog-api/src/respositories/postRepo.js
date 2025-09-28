@@ -56,12 +56,11 @@ export async function update(id, updates) {
   return result.rows[0];
 }
 
-export function remove(id) {
-  const index = posts.findIndex((post) => post.id === id);
-  if (index !== -1) {
-    posts.splice(index, 1);
-    return true;
-  } else {
-    return false;
-  }
+export async function remove(id) {
+  const text = `DELETE FROM posts
+                WHERE id = $1
+                RETURNING *`;
+  const values = [id];
+  const result = await pool.query(text, values);
+  return result.rows[0];
 }

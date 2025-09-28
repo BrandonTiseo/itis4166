@@ -33,8 +33,8 @@ export async function updatePostHandler(req, res) {
   res.status(200).json(updatedPost);
 }
 
-export function deletePostHandler(req, res) {
+export async function deletePostHandler(req, res) {
   let id = parseInt(req.params.id);
-  deletePost(id);
+  await deletePost(id);
   res.status(204).send();
 }

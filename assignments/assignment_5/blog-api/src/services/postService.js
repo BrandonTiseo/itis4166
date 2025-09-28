@@ -35,8 +35,8 @@ export async function updatePost(id, data) {
   }
 }
 
-export function deletePost(id) {
-  const result = remove(id);
+export async function deletePost(id) {
+  const result = await remove(id);
   if (result) return;
   else {
     const error = new Error(`Cannot find post with id ${id}`);
