@@ -14,9 +14,9 @@ export async function getAllPostsHandler(req, res) {
   res.status(200).json(posts);
 }
 
-export function getPostByIdHandler(req, res) {
+export async function getPostByIdHandler(req, res) {
   let id = parseInt(req.params.id);
-  let post = getPostById(id);
+  let post = await getPostById(id);
   res.status(200).json(post);
 }
 

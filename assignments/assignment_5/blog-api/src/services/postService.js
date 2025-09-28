@@ -10,8 +10,8 @@ export async function getAllPosts(query) {
   return posts;
 }
 
-export function getPostById(id) {
-  let result = getById(id);
+export async function getPostById(id) {
+  let result = await getById(id);
   if (result) return result;
   else {
     const error = new Error(`Cannot find post with id ${id}`);

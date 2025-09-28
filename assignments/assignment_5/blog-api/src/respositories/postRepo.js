@@ -16,9 +16,20 @@ export async function getAll(query) {
   return result.rows;
 }
 
-export function getById(id) {
-  let post = posts.find((b) => b.id === id);
-  return post;
+export async function getById(id) {
+  const text = `SELECT 
+                p.id,
+                p.title,
+                p.content,
+                p.created_at,
+                c.name AS category
+              FROM posts as p
+              LEFT JOIN categories as c
+              ON p.category_id = c.id
+              WHERE p.id = $1`;
+  const values = [id];
+  const result = await pool.query(text, values);
+  return result.rows[0];
 }
 
 export function create(post) {
