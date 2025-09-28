@@ -5,8 +5,9 @@ import {
   update,
   remove,
 } from '../respositories/postRepo.js';
-export function getAllPosts(query) {
-  return getAll(query);
+export async function getAllPosts(query) {
+  const posts = await getAll(query);
+  return posts;
 }
 
 export function getPostById(id) {

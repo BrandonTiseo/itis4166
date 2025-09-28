@@ -1,14 +1,19 @@
 import { posts, getNextId } from '../db/posts.js';
+import pool from "../db/db.js";
 
-export function getAll(query) {
-  let result = [...posts];
-  if (query.title) {
-    result = result.filter((post) =>
-      post.title.toLowerCase().includes(query.title),
-    );
-  }
-
-  return result;
+export async function getAll(query) {
+  let text = `SELECT 
+                p.id,
+                p.title,
+                p.content,
+                p.created_at,
+                c.name AS category
+              FROM posts as p
+              LEFT JOIN categories as c
+              ON p.category_id = c.id
+              ORDER BY p.created_at DESC`;
+  const result = await pool.query(text);
+  return result.rows;
 }
 
 export function getById(id) {

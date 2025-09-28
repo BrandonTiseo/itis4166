@@ -8,10 +8,10 @@ import {
 
 import { matchedData } from 'express-validator';
 
-export function getAllPostsHandler(req, res) {
+export async function getAllPostsHandler(req, res) {
   let query = matchedData(req);
-  let result = getAllPosts(query);
-  res.status(200).json(result);
+  let posts = await getAllPosts(query);
+  res.status(200).json(posts);
 }
 
 export function getPostByIdHandler(req, res) {
