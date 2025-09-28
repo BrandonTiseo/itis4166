@@ -20,6 +20,16 @@ export const validatePostQuery = [
   .isString()
   .withMessage('search must be a string'),
 
+  query('limit')
+  .optional()
+  .isInt({min: 1, max: 100})
+  .withMessage('limit must be an integer between 1 and 100'),
+
+  query('offset')
+  .optional()
+  .isInt({min: 0})
+  .withMessage('offset must be 0 or a positive integer'),
+
   handleValidationErrors,
 ];
 

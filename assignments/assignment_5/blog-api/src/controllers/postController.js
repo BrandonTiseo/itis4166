@@ -8,10 +8,12 @@ import {
 
 
 export async function getAllPostsHandler(req, res) {
-  const {category_id, search } = req.query;
+  const {category_id, search, limit = 10, offset = 0 } = req.query;
   const filter = {};
   if(category_id) filter.category_id = category_id;
   if(search) filter.search = search;
+  if(limit) filter.limit = limit;
+  if(offset) filter.offset = offset;
   let posts = await getAllPosts(filter);
   res.status(200).json(posts);
 }

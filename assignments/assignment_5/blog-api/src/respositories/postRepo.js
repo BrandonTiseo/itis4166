@@ -28,7 +28,18 @@ export async function getAll(filter) {
     text += ' WHERE ' + conditions.join(' AND ');
   }
 
-  text += ` ORDER BY p.created_at DESC`;
+  text += ` ORDER BY p.id ASC`;
+
+  if(filter.limit){
+    values.push(filter.limit);
+    text += ` LIMIT $${values.length}`;
+  }
+
+  if(filter.offset){
+    values.push(filter.offset);
+    text += ` OFFSET $${values.length}`;
+  }
+  
   const result = await pool.query(text, values);
   return result.rows;
 }
