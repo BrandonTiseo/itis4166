@@ -6,11 +6,13 @@ import {
   deletePost,
 } from '../services/postService.js';
 
-import { matchedData } from 'express-validator';
 
 export async function getAllPostsHandler(req, res) {
-  let query = matchedData(req);
-  let posts = await getAllPosts(query);
+  const {category_id, search } = req.query;
+  const filter = {};
+  if(category_id) filter.category_id = category_id;
+  if(search) filter.search = search;
+  let posts = await getAllPosts(filter);
   res.status(200).json(posts);
 }
 

@@ -1,7 +1,7 @@
 import { posts, getNextId } from '../db/posts.js';
 import pool from "../db/db.js";
 
-export async function getAll(query) {
+export async function getAll(filter) {
   let text = `SELECT 
                 p.id,
                 p.title,
@@ -10,9 +10,26 @@ export async function getAll(query) {
                 c.name AS category
               FROM posts as p
               LEFT JOIN categories as c
-              ON p.category_id = c.id
-              ORDER BY p.created_at DESC`;
-  const result = await pool.query(text);
+              ON p.category_id = c.id`;
+              //ORDER BY p.created_at DESC`;
+  const values = [];
+  const conditions = [];
+  if(filter.category_id) {
+    values.push(filter.category_id);
+    conditions.push(`p.category_id = $${values.length}`);
+  }
+
+  if(filter.search) {
+    values.push(`%${filter.search}%`);
+    conditions.push(`(p.title ILIKE $${values.length} OR p.content ILIKE $${values.length})`);
+  }
+
+  if(conditions.length > 0) {
+    text += ' WHERE ' + conditions.join(' AND ');
+  }
+
+  text += ` ORDER BY p.created_at DESC`;
+  const result = await pool.query(text, values);
   return result.rows;
 }
 
