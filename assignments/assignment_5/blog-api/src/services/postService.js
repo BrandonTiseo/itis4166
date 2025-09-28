@@ -25,8 +25,8 @@ export async function createPost(data) {
   return newPost;
 }
 
-export function updatePost(id, data) {
-  const updatedPost = update(id, data);
+export async function updatePost(id, data) {
+  const updatedPost = await update(id, data);
   if (updatedPost) return updatedPost;
   else {
     const error = new Error(`Cannot find post with id ${id}`);

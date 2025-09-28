@@ -26,10 +26,10 @@ export async function createPostHandler(req, res) {
   res.status(201).json(newPost);
 }
 
-export function updatePostHandler(req, res) {
+export async function updatePostHandler(req, res) {
   let id = parseInt(req.params.id);
   let updates = req.body;
-  const updatedPost = updatePost(id, updates);
+  const updatedPost = await updatePost(id, updates);
   res.status(200).json(updatedPost);
 }
 
