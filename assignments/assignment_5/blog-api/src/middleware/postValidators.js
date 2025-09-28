@@ -1,5 +1,6 @@
 import { param, query, body, oneOf } from 'express-validator';
 import { handleValidationErrors } from './handleValidationErrors.js';
+import { exists } from '../respositories/categoryRepo.js';
 
 export const validatePostId = [
   param('id')
@@ -38,6 +39,18 @@ export const validateCreatePost = [
     .bail()
     .isLength({ min: 10 })
     .withMessage('content must be at least 10 characters'),
+
+  body('category_id')
+    .optional()
+    .isInt({min: 1})
+    .withMessage('category_id must be a positive integer')
+    .bail()
+    .custom(async (value) => {
+      if(value && !(await exists(value))){
+        throw new Error(`Invalid category_id: ${value}`);
+      }
+      return true;
+    }),
 
   handleValidationErrors,
 ];

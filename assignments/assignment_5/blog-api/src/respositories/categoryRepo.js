@@ -1,4 +1,5 @@
 import { categories, getNextId } from '../db/categories.js';
+import pool from '../db/db.js';
 
 export function getAll(query) {
   let result = [...categories];
@@ -36,4 +37,14 @@ export function remove(id) {
   } else {
     return false;
   }
+}
+
+export async function exists(id) {
+  const text = `SELECT 1
+                FROM categories
+                WHERE id = $1`;
+  const values = [id];
+
+  const result = await pool.query(text, values);
+  return result.rowCount > 0;
 }

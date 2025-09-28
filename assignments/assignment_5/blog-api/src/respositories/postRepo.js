@@ -32,11 +32,13 @@ export async function getById(id) {
   return result.rows[0];
 }
 
-export function create(post) {
-  let id = getNextId();
-  const newPost = { id, ...post };
-  posts.push(newPost);
-  return newPost;
+export async function create(post) {
+  const text = `INSERT INTO posts (title, content, category_id)
+                VALUES ($1, $2, $3)
+                RETURNING *`;
+  const values = [post.title, post.content, post.category_id];
+  const result = await pool.query(text, values);
+  return result.rows[0];
 }
 
 export function update(id, updates) {
