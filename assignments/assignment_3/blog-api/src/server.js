@@ -1,4 +1,4 @@
-import express from 'express'; //static import
+import express from 'express';
 
 import blogRoutes from './routes/blogRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
