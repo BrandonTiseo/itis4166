@@ -6,34 +6,38 @@ import {
   deleteCategory,
 } from '../services/categoryService.js';
 
-import { matchedData } from 'express-validator';
 
-export function getAllCategoriesHandler(req, res) {
-  let result = getAllCategories();
-  res.status(200).json(result);
+export async function getAllCategoriesHandler(req, res) {
+  const {search, limit = 10, offset = 0 } = req.query;
+  const filter = {};
+  if(search) filter.search = search;
+  if(limit) filter.limit = limit;
+  if(offset) filter.offset = offset;
+  let categories = await getAllCategories(filter);
+  res.status(200).json(categories);
 }
 
-export function getCategoryByIdHandler(req, res) {
+export async function getCategoryByIdHandler(req, res) {
   let id = parseInt(req.params.id);
-  let category = getCategoryById(id);
+  let category = await getCategoryById(id);
   res.status(200).json(category);
 }
 
-export function createCategoryHandler(req, res) {
+export async function createCategoryHandler(req, res) {
   let data = req.body;
-  let newCategory = createCategory(data);
+  let newCategory = await createCategory(data);
   res.status(201).json(newCategory);
 }
 
-export function updateCategoryHandler(req, res) {
+export async function updateCategoryHandler(req, res) {
   let id = parseInt(req.params.id);
   let updates = req.body;
-  const updatedCategory = updateCategory(id, updates);
+  const updatedCategory = await updateCategory(id, updates);
   res.status(200).json(updatedCategory);
 }
 
-export function deleteCategoryHandler(req, res) {
+export async function deleteCategoryHandler(req, res) {
   let id = parseInt(req.params.id);
-  deleteCategory(id);
+  await deleteCategory(id);
   res.status(204).send();
 }

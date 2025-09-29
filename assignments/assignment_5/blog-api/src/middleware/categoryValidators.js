@@ -1,5 +1,6 @@
 import { param, query, body } from 'express-validator';
 import { handleValidationErrors } from './handleValidationErrors.js';
+import { nameExists } from '../respositories/categoryRepo.js'
 
 export const validateCategoryId = [
   param('id')
@@ -16,7 +17,13 @@ export const validateCategory = [
     .withMessage('name is required')
     .bail()
     .isLength({ min: 3 })
-    .withMessage('name must be at least 3 characters'),
+    .withMessage('name must be at least 3 characters')
+    .custom(async (value) => {
+      if(value && await nameExists(value)){
+        throw new Error(`Category with the name: ${value} already exists`);
+      } 
+      return true;
+    }),
 
   handleValidationErrors,
 ];

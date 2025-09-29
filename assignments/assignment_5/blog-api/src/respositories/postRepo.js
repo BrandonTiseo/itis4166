@@ -11,7 +11,6 @@ export async function getAll(filter) {
               FROM posts as p
               LEFT JOIN categories as c
               ON p.category_id = c.id`;
-              //ORDER BY p.created_at DESC`;
   const values = [];
   const conditions = [];
   if(filter.category_id) {
