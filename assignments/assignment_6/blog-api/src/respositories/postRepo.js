@@ -1,4 +1,5 @@
 import { posts, getNextId } from '../db/posts.js';
+import prisma from '../config/db.js';
 
 export function getAll(query) {
   let result = [...posts];
@@ -11,8 +12,18 @@ export function getAll(query) {
   return result;
 }
 
-export function getById(id) {
-  let post = posts.find((b) => b.id === id);
+export async function getById(id) {
+  const post = await prisma.post.findUnique({
+    where: { id },
+    select: {
+      title: true,
+      id: true,
+      content: true,
+      category: {
+        select: {name: true}
+      }
+    }
+  });
   return post;
 }
 
