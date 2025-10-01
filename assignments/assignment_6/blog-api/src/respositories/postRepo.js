@@ -1,15 +1,28 @@
 import { posts, getNextId } from '../db/posts.js';
 import prisma from '../config/db.js';
 
-export function getAll(query) {
-  let result = [...posts];
-  if (query.title) {
-    result = result.filter((post) =>
-      post.title.toLowerCase().includes(query.title),
-    );
+export async function getAll(filter) {
+  const conditions = {};
+  if(filter.categoryId){
+    conditions.categoryId = {equals: parseInt(filter.categoryId)}
   }
 
-  return result;
+  if(filter.search){
+    conditions.OR = [
+      {title: {contains: filter.search, mode: 'insensitive'}},
+      {content: {contains: filter.search, mode: 'insensitive'}},
+    ];
+  }
+  const posts = await prisma.post.findMany({
+    where: conditions,
+    select: {
+      title: true,
+      id: true,
+      content: true,
+      category: true,
+    },
+  });
+  return posts;
 }
 
 export async function getById(id) {
@@ -19,9 +32,7 @@ export async function getById(id) {
       title: true,
       id: true,
       content: true,
-      category: {
-        select: {name: true}
-      }
+      category: true,
     }
   });
   return post;

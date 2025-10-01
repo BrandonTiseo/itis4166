@@ -9,7 +9,15 @@ export const validatePostId = [
 ];
 
 export const validatePostQuery = [
-  query('title').optional().trim().escape().toLowerCase(),
+  query('categoryId')
+    .optional()
+    .isInt({min: 1})
+    .withMessage('CategoryId must be a positive integer'),
+
+  query('search')
+    .optional()
+    .isString()
+    .withMessage('search must be a string'),
 
   handleValidationErrors,
 ];
