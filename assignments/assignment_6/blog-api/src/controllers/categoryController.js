@@ -9,8 +9,8 @@ import {
 export async function getAllCategoriesHandler(req, res) {
   const { 
     search, 
-    sortBy = 'name', 
-    sortOrder = 'desc',
+    sortBy = 'id', 
+    sortOrder = 'asc',
     limit = 10,
     offset = 0, 
   } = req.query;
