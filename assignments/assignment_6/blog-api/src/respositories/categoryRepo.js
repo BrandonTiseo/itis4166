@@ -1,45 +1,73 @@
 import { categories, getNextId } from '../db/categories.js';
 import prisma from '../config/db.js'
 
-export function getAll(query) {
-  let result = [...categories];
-  return result;
+export async function getAll(filter) {
+  const conditions = {};
+  if(filter.search){
+    conditions.name = {contains: filter.search, mode: 'insensitive'}
+  }
+  const categories = await prisma.category.findMany({
+    where: conditions,
+    select: {
+      name: true,
+      id: true,
+    },
+    orderBy: {[filter.sortBy]: filter.sortOrder},
+    take: filter.limit,
+    skip: filter.offset,
+  });
+  return categories;
 }
 
-export function getById(id) {
-  let category = categories.find((category) => c.id === id);
+export async function getById(id) {
+  const category = await prisma.category.findUnique({
+    where: { id },
+    select: {
+      name: true,
+      id: true,
+    }
+  });
   return category;
 }
 
-export function create(category) {
-  let id = getNextId();
-  const newCategory = { id, name: category.name };
-  categories.push(newCategory);
+export async function create(category) {
+  const newCategory = await prisma.category.create({
+    data: category,
+  })
   return newCategory;
 }
 
-export function update(id, updates) {
-  console.log(id);
-  const index = categories.findIndex((category) => category.id === id);
-  if (index !== -1) {
-    categories[index].name = updates.name;
-    return categories[index];
-  } else {
-    return null;
+export async function update(id, updates) {
+  try{
+    const updatedCategory = await prisma.category.update({
+      where: {id},
+      data: updates,
+    });
+    return updatedCategory;
+  } catch(error){
+    if(error.code === 'P2025') return null;
+    throw error;
   }
 }
 
-export function remove(id) {
-  const index = categories.findIndex((category) => category.id === id);
-  if (index !== -1) {
-    categories.splice(index, 1);
-    return true;
-  } else {
-    return false;
+export async function remove(id) {
+  try{
+    const deletedCategory = await prisma.category.delete({
+      where: { id },
+    });
+    return deletedCategory;
+  } catch (error) {
+    if(error.code === 'P2025') return null;
+    throw error;
   }
 }
 
 export async function exists(id){
   const result = await prisma.category.count({where: { id }});
+  return result > 0;
+}
+
+export async function nameExists(name){
+  const result = await prisma.category.count({where: { name }});
   return result > 0;
 }
