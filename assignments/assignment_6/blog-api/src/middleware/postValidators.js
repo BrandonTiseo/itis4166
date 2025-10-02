@@ -8,6 +8,8 @@ export const validatePostId = [
   handleValidationErrors,
 ];
 
+const allowedSortFields = ['id','title','createdAt','categoryId']
+const allowedSortOrders = ['asc','desc']
 export const validatePostQuery = [
   query('categoryId')
     .optional()
@@ -18,6 +20,26 @@ export const validatePostQuery = [
     .optional()
     .isString()
     .withMessage('search must be a string'),
+
+  query('sortBy')
+    .optional()
+    .isIn(allowedSortFields)
+    .withMessage(`sortBy must be one of: ${allowedSortFields}`),
+  
+    query('sortOrder')
+      .optional()
+      .isIn(allowedSortOrders)
+      .withMessage(`sortOrder must be one of: ${allowedSortOrders}`),
+
+    query('limit')
+      .optional()
+      .isInt({min:1, max:10})
+      .withMessage('limit must be an integer between 1 and 100'),
+    
+    query('offset')
+      .optional()
+      .isInt({min:0})
+      .withMessage('offset must be 0 or a positive integer'),
 
   handleValidationErrors,
 ];

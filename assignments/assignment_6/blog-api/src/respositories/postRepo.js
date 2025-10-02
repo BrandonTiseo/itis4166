@@ -4,7 +4,7 @@ import prisma from '../config/db.js';
 export async function getAll(filter) {
   const conditions = {};
   if(filter.categoryId){
-    conditions.categoryId = {equals: parseInt(filter.categoryId)}
+    conditions.categoryId = {equals: filter.categoryId}
   }
 
   if(filter.search){
@@ -19,8 +19,12 @@ export async function getAll(filter) {
       title: true,
       id: true,
       content: true,
+      createdAt: true,
       category: true,
     },
+    orderBy: {[filter.sortBy]: filter.sortOrder},
+    take: filter.limit,
+    skip: filter.offset,
   });
   return posts;
 }
@@ -32,6 +36,7 @@ export async function getById(id) {
       title: true,
       id: true,
       content: true,
+      createdAt: true,
       category: true,
     }
   });

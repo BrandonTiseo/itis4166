@@ -7,10 +7,21 @@ import {
 } from '../services/postService.js';
 
 export async function getAllPostsHandler(req, res) {
-  const {categoryId, search} = req.query;
+  const {
+    categoryId, 
+    search, 
+    sortBy = 'createdAt', 
+    sortOrder = 'desc',
+    limit = 10,
+    offset = 0, 
+  } = req.query;
   const filter = {};
-  if(categoryId) filter.categoryId = categoryId;
+  if(categoryId) filter.categoryId = parseInt(categoryId);
   if(search) filter.search = search;
+  filter.sortBy = sortBy;
+  filter.sortOrder = sortOrder;
+  filter.limit = parseInt(limit);
+  filter.offset = parseInt(offset);
   let result = await getAllPosts(filter);
   res.status(200).json(result);
 }
