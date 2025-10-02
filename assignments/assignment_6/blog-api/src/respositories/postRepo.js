@@ -43,10 +43,11 @@ export async function getById(id) {
   return post;
 }
 
-export function create(post) {
-  let id = getNextId();
-  const newPost = { id, ...post };
-  posts.push(newPost);
+export async function create(post) {
+  const newPost = await prisma.post.create({
+    data: post,
+    include: {category: true},
+  })
   return newPost;
 }
 

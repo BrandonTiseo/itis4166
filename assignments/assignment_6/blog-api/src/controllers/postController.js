@@ -32,9 +32,9 @@ export async function getPostByIdHandler(req, res) {
   res.status(200).json(post);
 }
 
-export function createPostHandler(req, res) {
+export async function createPostHandler(req, res) {
   let data = req.body;
-  let newPost = createPost(data);
+  let newPost = await createPost(data);
   res.status(201).json(newPost);
 }
 

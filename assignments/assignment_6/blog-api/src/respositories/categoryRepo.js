@@ -1,4 +1,5 @@
 import { categories, getNextId } from '../db/categories.js';
+import prisma from '../config/db.js'
 
 export function getAll(query) {
   let result = [...categories];
@@ -36,4 +37,9 @@ export function remove(id) {
   } else {
     return false;
   }
+}
+
+export async function exists(id){
+  const result = await prisma.category.count({where: { id }});
+  return result > 0;
 }

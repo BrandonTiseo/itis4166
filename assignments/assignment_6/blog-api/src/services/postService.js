@@ -19,15 +19,14 @@ export async function getPostById(id) {
   }
 }
 
-export function createPost(data) {
-  const now = new Date().toISOString();
+export async function createPost(data) {
   let post = {
     title: data.title,
     content: data.content,
-    createdAt: now,
+    categoryId: data.categoryId,
   };
 
-  return create(post);
+  return await create(post);
 }
 
 export function updatePost(id, data) {
