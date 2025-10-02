@@ -20,17 +20,11 @@ export async function getPostById(id) {
 }
 
 export async function createPost(data) {
-  let post = {
-    title: data.title,
-    content: data.content,
-    categoryId: data.categoryId,
-  };
-
-  return await create(post);
+  return await create(data);
 }
 
-export function updatePost(id, data) {
-  const updatedPost = update(id, data);
+export async function updatePost(id, data) {
+  const updatedPost = await update(id, data);
   if (updatedPost) return updatedPost;
   else {
     const error = new Error(`Cannot find post with id ${id}`);

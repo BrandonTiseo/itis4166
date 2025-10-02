@@ -33,15 +33,23 @@ export async function getPostByIdHandler(req, res) {
 }
 
 export async function createPostHandler(req, res) {
-  let data = req.body;
+  const data = {
+    title: req.title,
+    content: req.content,
+    categoryId: req.categoryId,
+  };
   let newPost = await createPost(data);
   res.status(201).json(newPost);
 }
 
-export function updatePostHandler(req, res) {
+export async function updatePostHandler(req, res) {
   let id = parseInt(req.params.id);
-  let updates = req.body;
-  const updatedPost = updatePost(id, updates);
+  const updates = {};
+  if(req.body.title) updates.title = req.body.title;
+  if(req.body.content) updates.content = req.body.content;
+  if(req.body.categoryId) updates.categoryId = req.body.categoryId;
+
+  const updatedPost = await updatePost(id, updates);
   res.status(200).json(updatedPost);
 }
 
