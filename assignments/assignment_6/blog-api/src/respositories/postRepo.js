@@ -60,17 +60,19 @@ export async function update(id, updates) {
     });
     return updatedPost;
   } catch(error){
-    if(error.code = 'P2025') return null;
+    if(error.code === 'P2025') return null;
     throw error;
   }
 }
 
-export function remove(id) {
-  const index = posts.findIndex((post) => post.id === id);
-  if (index !== -1) {
-    posts.splice(index, 1);
-    return true;
-  } else {
-    return false;
+export async function remove(id) {
+  try{
+    const deletedPost = await prisma.post.delete({
+      where: { id },
+    });
+    return deletedPost;
+  } catch (error) {
+    if(error.code === 'P2025') return null;
+    throw error;
   }
 }
