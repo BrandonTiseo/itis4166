@@ -1,7 +1,13 @@
-import { signUp } from "../services/authService.js";
+import { signUp, logIn } from "../services/authService.js";
 
 export async function signUpHandler(req, res){
     const {email, password} = req.body;
     const newUser = await signUp(email, password);
     res.status(201).json({message: `New user created with id of ${newUser.id}`});
 } 
+
+export async function logInHandler(req, res){
+    const {email, password} = req.body;
+    await logIn(email, password);
+    res.status(200).json({message: 'Successfully logged in'});
+}
