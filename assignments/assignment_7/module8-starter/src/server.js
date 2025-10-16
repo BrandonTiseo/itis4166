@@ -1,6 +1,7 @@
 import express from 'express';
 
 import postRoutes from './routes/postRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,7 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.json());
 app.use('/api/posts', postRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
