@@ -19,7 +19,7 @@ model Post {
     title String
     content String
     createdAt DateTime @default(now()) @map("created_at")
-    author User @relation(fields: [userId], references: [id])
+    author User @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId Int
     @@map("posts")
 }
