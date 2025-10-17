@@ -36,6 +36,7 @@ export async function createPostHandler(req, res) {
   const data = {
     title: req.body.title,
     content: req.body.content,
+    userId: req.user.id
   };
   let newPost = await createPost(data);
   res.status(201).json(newPost);

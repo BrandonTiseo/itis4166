@@ -16,6 +16,7 @@ export async function getAll(filter) {
       id: true,
       title: true,
       content: true,
+      userId: true,
       createdAt: true,
     },
     orderBy: { [filter.sortBy]: filter.sortOrder },
@@ -33,6 +34,7 @@ export async function getById(id) {
       id: true,
       title: true,
       content: true,
+      userId: true,
       createdAt: true,
     },
   });

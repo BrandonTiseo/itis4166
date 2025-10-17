@@ -14,16 +14,19 @@ import {
   deletePostHandler,
 } from '../controllers/postController.js';
 
+import { authenticate } from '../middleware/authenticate.js';
+import { authorizeOwnership } from '../middleware/authorizeOwnership.js';
+
 const router = express.Router();
 
 router.get('/', validatePostQuery, getAllPostsHandler);
 
 router.get('/:id', validatePostId, getPostByIdHandler);
 
-router.post('/', validateCreatePost, createPostHandler);
+router.post('/', authenticate, validateCreatePost, createPostHandler);
 
-router.put('/:id', validatePostId, validateUpdatePost, updatePostHandler);
+router.put('/:id', validatePostId, authenticate, authorizeOwnership, validateUpdatePost, updatePostHandler);
 
-router.delete('/:id', validatePostId, deletePostHandler);
+router.delete('/:id', validatePostId, authenticate, authorizeOwnership, deletePostHandler);
 
 export default router;
