@@ -7,3 +7,9 @@ export async function createUser(data) {
 export async function findUserByEmail(email) {
     return await prisma.user.findUnique({where: {email}});
 }
+
+export async function findAllusers(){
+    return await prisma.user.findMany({
+        omit: { password: true},
+    });
+}
